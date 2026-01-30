@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Inventor Configurator</title>
+</head>
+<body>
+
+  <h2>Configurar Peça</h2>
+
+  <label>Raio inferior:</label>
+  <input type="number" id="crucibleSupBottomRadius" value="100"><br><br>
+
+  <label>Raio superior:</label>
+  <input type="number" id="crucibleSupTopRadius" value="120"><br><br>
+
+  <label>Altura:</label>
+  <input type="number" id="crucibleSupThickness" value="80"><br><br>
+
+  <button onclick="sendData()">Gerar Peça</button>
+
+  <script>
+    function sendData() {
+      const data = {
+        crucibleSupBottomRadius: Number(document.getElementById("crucibleSupBottomRadius").value),
+        crucibleSupTopRadius: Number(document.getElementById("crucibleSupTopRadius").value),
+        crucibleSupThickness: Number(document.getElementById("crucibleSupThickness").value)
+      };
+
+      fetch("http://127.0.0.1:5000/generate", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data)
+      })
+      .then(res => alert("Inventor acionado com sucesso!"))
+      .catch(err => alert("Erro ao chamar o Inventor"));
+    }
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,21 @@
+Dim json As String 
+json = System.IO.File.ReadAllText("<<PATH_NAME>>\programs\myParameters.json")
+
+' Remove caracteres especiais
+json = json.Replace("{", "")
+json = json.Replace("}", "")
+json = json.Replace("""", "")
+
+' Divide em linhas
+Dim lines() As String = json.Split(",")
+
+For Each line As String In lines
+    Dim parts() As String = Line.Split(":")
+    Dim paramName As String = parts(0).Trim()
+    
+	Dim paramValue As Double = CDbl(parts(1).Trim())
+    Parameter(paramName) = paramValue
+    
+Next
+
+InventorVb.DocumentUpdate()
